@@ -42,8 +42,8 @@ textarea{height:360px;resize:vertical;font-family:'Merriweather',serif;line-heig
 .empty-icon{font-size:64px;margin-bottom:16px} /* tamanho: ícone 🎯 64px */
 .empty h3{color:#111827;margin-bottom:10px;font-size:22px;font-weight:800} /* tamanho: título 22px */
 .empty p{font-size:15px;max-width:360px;line-height:1.5} /* tamanho: descrição 15px */
-.empty ul{text-align:left;margin:20px auto;max-width:360px;font-size:28px;list-style:none;line-height:1.4} /* tamanho: lista 28px (C1-C5) */
-.empty li{margin:8px 0;font-size:28px} /* tamanho: cada ✅ 28px */
+.empty ul{text-align:left;margin:20px auto;max-width:360px;font-size:20px;list-style:none;line-height:1.4} /* tamanho: lista 20px (C1-C5) */
+.empty li{margin:8px 0;font-size:20px} /* tamanho: cada ✅ 20px */
 .nota-total{text-align:center;padding:18px;background:linear-gradient(135deg,#111827,#1e40af);color:#fff;border-radius:14px;margin-bottom:16px} /* tamanho: card nota total 18px padding */
 .nota-total .num{font-size:42px;font-weight:800;line-height:1} /* tamanho: número 960 em 42px */
 .nota-total .label{font-size:12px;opacity:.8;letter-spacing:1px}
