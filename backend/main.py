@@ -91,17 +91,34 @@ def chamar_ia(system: str, user: str, json_mode: bool = False) -> str:
     if json_mode:
         extra["response_format"] = {"type": "json_object"}  # tamanho: força JSON válido (sem texto extra)
     
-    resp = client.chat.completions.create(
-        model=MODEL,  # tamanho: modelo configurado no .env
-        messages=[
-            {"role": "system", "content": system},  # tamanho: instruções do corretor ENEM
-            {"role": "user", "content": user}  # tamanho: redação + tema
-        ],
-        temperature=0.3,  # tamanho: 0.3 = mais determinístico/rigoroso (0=criativo, 1=variado)
-        max_tokens=2500,  # tamanho: limite de tokens da resposta (cobre JSON completo)
-        **extra
-    )
-    return resp.choices[0].message.content
+    try:
+        resp = client.chat.completions.create(
+            model=MODEL,  # tamanho: modelo configurado no .env
+            messages=[
+                {"role": "system", "content": system},  # tamanho: instruções do corretor ENEM
+                {"role": "user", "content": user}  # tamanho: redação + tema
+            ],
+            temperature=0.3,  # tamanho: 0.3 = mais determinístico/rigoroso (0=criativo, 1=variado)
+            max_tokens=3000,  # tamanho: limite de tokens da resposta (aumentado para JSON completo sem cortar)
+            **extra
+        )
+        return resp.choices[0].message.content
+    except Exception as e:
+        # Se falhar por json_validate_failed (Groq às vezes não gera JSON válido em json_mode), tenta sem json_mode
+        msg = str(e)
+        if json_mode and ("json_validate_failed" in msg or "Failed to validate JSON" in msg or "failed_generation" in msg):
+            print(f"[retry] json_mode falhou, tentando sem json_mode: {msg[:200]}")
+            resp = client.chat.completions.create(
+                model=MODEL,
+                messages=[
+                    {"role": "system", "content": system + "\n\nIMPORTANTE: Responda APENAS com JSON válido, sem texto extra ou markdown."},
+                    {"role": "user", "content": user}
+                ],
+                temperature=0.2,  # tamanho: 0.2 = ainda mais determinístico no retry
+                max_tokens=3000,
+            )
+            return resp.choices[0].message.content
+        raise
 
 def mock_correcao(texto: str):
     """Fallback DEMO: retorna nota simulada quando não há API key (para testar layout sem gastar cota)"""
@@ -152,8 +169,9 @@ def corrigir(req: RedacaoRequest):
     if not client:  # sem key -> retorna mock demo (não chama IA)
         return {"tipo": "correcao", "resultado": mock_correcao(texto), "demo": True}
 
+    raw = ""  # guarda resposta bruta para debug se der erro
     try:
-        raw = chamar_ia(SYSTEM_PROMPT, user_prompt, json_mode=True)  # chama IA em modo JSON
+        raw = chamar_ia(SYSTEM_PROMPT, user_prompt, json_mode=True)  # chama IA em modo JSON (com retry automático se falhar)
         # Extrai JSON mesmo se vier com ```json ... ``` (markdown)
         match = re.search(r'\{.*\}', raw, re.DOTALL)
         if match:
@@ -161,9 +179,22 @@ def corrigir(req: RedacaoRequest):
         resultado = json.loads(raw)  # tamanho: JSON com c1-c5, nota_final, etc
         return {"tipo": "correcao", "resultado": resultado, "demo": False}
     except json.JSONDecodeError:
-        raise HTTPException(status_code=500, detail=f"Erro ao interpretar JSON da IA: {raw[:500]}")
+        # Se ainda falhar, tenta extrair JSON sem json_mode (fallback final)
+        try:
+            print(f"[fallback] JSONDecodeError, tentando fallback sem json_mode")
+            raw2 = chamar_ia(SYSTEM_PROMPT, user_prompt, json_mode=False)
+            m2 = re.search(r'\{.*\}', raw2, re.DOTALL)
+            if m2:
+                raw2 = m2.group(0)
+            resultado = json.loads(raw2)
+            return {"tipo": "correcao", "resultado": resultado, "demo": False}
+        except:
+            raise HTTPException(status_code=500, detail=f"Erro ao interpretar JSON da IA: {raw[:800]}")
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        # Mensagem amigável para o usuário (não mostra traceback técnico)
+        if "json_validate_failed" in str(e) or "Failed to validate JSON" in str(e):
+            raise HTTPException(status_code=500, detail="IA falhou ao gerar JSON válido. Tente novamente clicando em Corrigir com IA.")
+        raise HTTPException(status_code=500, detail=str(e)[:500])
 
 @app.post("/api/chat")  # endpoint de dúvidas: tira dúvidas sobre ENEM sem corrigir redação
 def chat(req: ChatRequest):
