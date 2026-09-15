@@ -1,48 +1,49 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8"> <!-- tamanho: charset UTF-8 para acentos pt-BR -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- tamanho: adapta para celular -->
 <title>Corretor ENEM IA — Nota 1000</title>
-<link rel="stylesheet" href="style.css">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css"> <!-- tamanho: arquivo CSS com todo estilo -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Merriweather:wght@400;700&display=swap" rel="stylesheet"> <!-- tamanho: fontes Inter (UI) e Merriweather (redação) -->
 </head>
 <body>
-<header>
+<header> <!-- tamanho: header 16px padding vertical, sticky no topo -->
+  <!-- LOGO: tamanho 20px, CORRETOR ENEM PRO separado (ENEM azul #60a5fa) -->
   <div class="logo">✍️ CORRETOR <span>ENEM</span> <span style="font-weight:400;opacity:.8">PRO</span></div>
-  <div class="badge">IA • C1-C5 • Nota 0-1000</div>
+  <div class="badge">IA • C1-C5 • Nota 0-1000</div> <!-- tamanho: badge 12px pílula -->
 </header>
 
-<div class="container">
-  <div class="tabs">
-    <button class="tab active" onclick="switchTab('corrigir')">📝 Corrigir Redação</button>
+<div class="container"> <!-- tamanho: largura máx 1200px centralizada -->
+  <div class="tabs"> <!-- tamanho: abas com gap 8px -->
+    <button class="tab active" onclick="switchTab('corrigir')">📝 Corrigir Redação</button> <!-- tamanho: aba 10x18px padding -->
     <button class="tab" onclick="switchTab('chat')">💬 Tirar Dúvidas</button>
   </div>
 
-  <!-- ABA CORRIGIR -->
+  <!-- ABA CORRIGIR: grid 2 colunas (editor + resultado), vira 1 coluna em <900px -->
   <div id="tab-corrigir" class="tab-content active">
     <div class="grid">
-      <div class="left">
+      <div class="left"> <!-- tamanho: painel branco 16px raio, 20px padding -->
         <label>Tema da redação (opcional)</label>
-        <input id="tema" placeholder="Ex: Desafios para a valorização da herança africana no Brasil">
+        <input id="tema" placeholder="Ex: Desafios para a valorização da herança africana no Brasil"> <!-- tamanho: input 12x14px padding, borda 1.5px -->
         
-        <label>Sua redação <span id="contador">0 palavras • 0 linhas</span></label>
-        <textarea id="redacao" placeholder="Cole sua redação aqui...&#10;&#10;Dica: Escreva no mínimo 8 linhas (ideal 25-30 linhas) no modelo dissertativo-argumentativo."></textarea>
+        <label>Sua redação <span id="contador">0 palavras • 0 linhas</span></label> <!-- tamanho: contador 12px -->
+        <textarea id="redacao" placeholder="Cole sua redação aqui...&#10;&#10;Dica: Escreva no mínimo 8 linhas (ideal 25-30 linhas) no modelo dissertativo-argumentativo."></textarea> <!-- tamanho: textarea 360px altura -->
         
-        <div class="actions">
-          <button id="btnCorrigir" onclick="corrigir()">⚡ Corrigir com IA</button>
+        <div class="actions"> <!-- tamanho: botões lado a lado gap 10px -->
+          <button id="btnCorrigir" onclick="corrigir()">⚡ Corrigir com IA</button> <!-- tamanho: botão azul 12px padding, 15px fonte -->
           <button class="ghost" onclick="exemplo()">Carregar exemplo</button>
         </div>
-        <p class="hint">✅ Correção com IA ativa — Groq • C1-C5 em segundos</p>
+        <p class="hint">✅ Correção com IA ativa — Groq • C1-C5 em segundos</p> <!-- tamanho: hint 12px cinza -->
       </div>
 
-      <div class="right" id="resultado">
-        <div class="empty">
-          <div class="empty-icon">🎯</div>
-          <h3>Sua correção aparecerá aqui</h3>
-          <p>Nota por competência (C1-C5), comentários, reescrita de trechos e dica para 1000.</p>
+      <div class="right" id="resultado"> <!-- tamanho: painel resultado 16px raio -->
+        <div class="empty"> <!-- tamanho: estado vazio padding 48x24px, min-height 420px -->
+          <div class="empty-icon">🎯</div> <!-- tamanho: ícone 64px -->
+          <h3>Sua correção aparecerá aqui</h3> <!-- tamanho: título 22px -->
+          <p>Nota por competência (C1-C5), comentários, reescrita de trechos e dica para 1000.</p> <!-- tamanho: descrição 15px -->
           <ul>
-            <li>✅ C1: Gramática e norma culta</li>
+            <li>✅ C1: Gramática e norma culta</li> <!-- tamanho: lista 28px cada -->
             <li>✅ C2: Tema e repertório</li>
             <li>✅ C3: Argumentação</li>
             <li>✅ C4: Coesão</li>
@@ -53,16 +54,16 @@
     </div>
   </div>
 
-  <!-- ABA CHAT -->
+  <!-- ABA CHAT: box 420px altura com scroll, mensagens 14px -->
   <div id="tab-chat" class="tab-content">
     <div class="chat-box" id="chatBox">
       <div class="msg bot">Olá! Sou seu professor de redação ENEM. 👋<br><br>Pergunte sobre <b>estrutura, conectivos, repertório, C5, temas</b> ou envie sua redação para corrigir.</div>
     </div>
-    <div class="chat-input">
+    <div class="chat-input"> <!-- tamanho: input flex 1 + botão 12x20px -->
       <input id="chatMsg" placeholder="Ex: Como fazer uma proposta de intervenção nota 200?" onkeydown="if(event.key==='Enter') enviarChat()">
       <button onclick="enviarChat()">Enviar</button>
     </div>
-    <div class="sugestoes">
+    <div class="sugestoes"> <!-- tamanho: botões pílula 8x12px, 12px fonte -->
       <button onclick="chatSugestao('Me dê 10 conectivos coringas para C4')">Conectivos C4</button>
       <button onclick="chatSugestao('Como fazer C5 com os 5 elementos?')">C5 nota 200</button>
       <button onclick="chatSugestao('Qual a estrutura ideal da redação ENEM?')">Estrutura</button>
@@ -71,6 +72,6 @@
   </div>
 </div>
 
-<script src="script.js"></script>
+<script src="script.js"></script> <!-- tamanho: JS que controla abas, contador, chamadas API -->
 </body>
 </html>
