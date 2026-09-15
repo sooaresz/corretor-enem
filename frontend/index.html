@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Corretor ENEM IA — Nota 1000</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<header>
+  <div class="logo">✍️ CORRETOR<span>ENEM</span> PRO</div>
+  <div class="badge">IA • C1-C5 • Nota 0-1000</div>
+</header>
+
+<div class="container">
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('corrigir')">📝 Corrigir Redação</button>
+    <button class="tab" onclick="switchTab('chat')">💬 Tirar Dúvidas</button>
+  </div>
+
+  <!-- ABA CORRIGIR -->
+  <div id="tab-corrigir" class="tab-content active">
+    <div class="grid">
+      <div class="left">
+        <label>Tema da redação (opcional)</label>
+        <input id="tema" placeholder="Ex: Desafios para a valorização da herança africana no Brasil">
+        
+        <label>Sua redação <span id="contador">0 palavras • 0 linhas</span></label>
+        <textarea id="redacao" placeholder="Cole sua redação aqui...&#10;&#10;Dica: Escreva no mínimo 8 linhas (ideal 25-30 linhas) no modelo dissertativo-argumentativo."></textarea>
+        
+        <div class="actions">
+          <button id="btnCorrigir" onclick="corrigir()">⚡ Corrigir com IA</button>
+          <button class="ghost" onclick="exemplo()">Carregar exemplo</button>
+        </div>
+        <p class="hint">Funciona mesmo sem API key (modo demo). Para correção real, configure o .env</p>
+      </div>
+
+      <div class="right" id="resultado">
+        <div class="empty">
+          <div class="empty-icon">🎯</div>
+          <h3>Sua correção aparecerá aqui</h3>
+          <p>Nota por competência (C1-C5), comentários, reescrita de trechos e dica para 1000.</p>
+          <ul>
+            <li>✅ C1: Gramática e norma culta</li>
+            <li>✅ C2: Tema e repertório</li>
+            <li>✅ C3: Argumentação</li>
+            <li>✅ C4: Coesão</li>
+            <li>✅ C5: Proposta de intervenção</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABA CHAT -->
+  <div id="tab-chat" class="tab-content">
+    <div class="chat-box" id="chatBox">
+      <div class="msg bot">Olá! Sou seu professor de redação ENEM. 👋<br><br>Pergunte sobre <b>estrutura, conectivos, repertório, C5, temas</b> ou envie sua redação para corrigir.</div>
+    </div>
+    <div class="chat-input">
+      <input id="chatMsg" placeholder="Ex: Como fazer uma proposta de intervenção nota 200?" onkeydown="if(event.key==='Enter') enviarChat()">
+      <button onclick="enviarChat()">Enviar</button>
+    </div>
+    <div class="sugestoes">
+      <button onclick="chatSugestao('Me dê 10 conectivos coringas para C4')">Conectivos C4</button>
+      <button onclick="chatSugestao('Como fazer C5 com os 5 elementos?')">C5 nota 200</button>
+      <button onclick="chatSugestao('Qual a estrutura ideal da redação ENEM?')">Estrutura</button>
+      <button onclick="chatSugestao('Me dê repertórios coringas para qualquer tema')">Repertórios</button>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

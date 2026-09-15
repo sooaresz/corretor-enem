@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: corretor-enem
+    runtime: python
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: uvicorn backend.main:app --host 0.0.0.0 --port $PORT
+    env: python
+    plan: free
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false # preencha no dashboard Render
+      - key: OPENAI_BASE_URL
+        value: https://api.groq.com/openai/v1
+      - key: MODEL
+        value: openai/gpt-oss-20b

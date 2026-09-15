@@ -1,0 +1,51 @@
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#f6f7fb;color:#1a1a2e;line-height:1.6}
+header{background:#111827;color:#fff;padding:16px 24px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10}
+.logo{font-weight:800;font-size:20px;letter-spacing:-0.5px}.logo span{color:#60a5fa}
+.badge{background:#1f2937;padding:6px 12px;border-radius:999px;font-size:12px;color:#9ca3af}
+.container{max-width:1200px;margin:0 auto;padding:24px}
+.tabs{display:flex;gap:8px;margin-bottom:20px}
+.tab{padding:10px 18px;border:1px solid #e5e7eb;background:#fff;border-radius:10px;cursor:pointer;font-weight:600;color:#374151}
+.tab.active{background:#111827;color:#fff;border-color:#111827}
+.tab-content{display:none}.tab-content.active{display:block}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:900px){.grid{grid-template-columns:1fr}}
+.left,.right{background:#fff;border-radius:16px;padding:20px;border:1px solid #e5e7eb;box-shadow:0 4px 12px rgba(0,0,0,0.04)}
+label{font-weight:600;font-size:13px;color:#374151;display:flex;justify-content:space-between;margin-bottom:6px}
+#contador{font-weight:400;color:#9ca3af;font-size:12px}
+input,textarea{width:100%;padding:12px 14px;border:1.5px solid #e5e7eb;border-radius:10px;font-family:inherit;font-size:14px;outline:none;transition:.2s}
+input:focus,textarea:focus{border-color:#60a5fa;box-shadow:0 0 0 3px #eff6ff}
+textarea{height:360px;resize:vertical;font-family:'Merriweather',serif;line-height:1.7}
+.actions{display:flex;gap:10px;margin-top:12px}
+#btnCorrigir{flex:1;background:#2563eb;color:#fff;border:none;padding:12px;border-radius:10px;font-weight:700;cursor:pointer;font-size:15px}
+#btnCorrigir:disabled{background:#9ca3af;cursor:not-allowed}
+.ghost{background:#fff;border:1px solid #e5e7eb;padding:12px 16px;border-radius:10px;cursor:pointer;font-weight:600}
+.hint{font-size:12px;color:#9ca3af;margin-top:8px;text-align:center}
+.empty{text-align:center;padding:30px 10px;color:#6b7280}
+.empty-icon{font-size:42px;margin-bottom:10px}
+.empty h3{color:#111827;margin-bottom:6px}
+.empty ul{text-align:left;margin:16px auto;max-width:260px;font-size:13px;list-style:none}
+.empty li{margin:4px 0}
+.nota-total{text-align:center;padding:18px;background:linear-gradient(135deg,#111827,#1e40af);color:#fff;border-radius:14px;margin-bottom:16px}
+.nota-total .num{font-size:42px;font-weight:800;line-height:1}
+.nota-total .label{font-size:12px;opacity:.8;letter-spacing:1px}
+.demo-aviso{background:#fef3c7;border:1px solid #fcd34d;color:#92400e;padding:8px 12px;border-radius:8px;font-size:12px;margin-bottom:12px;text-align:center}
+.competencias{display:grid;gap:8px;margin-bottom:16px}
+.comp{display:flex;justify-content:space-between;align-items:center;padding:12px;background:#f9fafb;border-radius:10px;border-left:4px solid #e5e7eb}
+.comp.ok{border-left-color:#10b981}.comp.media{border-left-color:#f59e0b}.comp.ruim{border-left-color:#ef4444}
+.comp b{font-size:13px}.comp .nota{font-weight:800;font-size:18px}
+.card{background:#f9fafb;padding:14px;border-radius:10px;margin-bottom:10px}
+.card h4{font-size:13px;margin-bottom:6px;color:#111827}
+.card p, .card li{font-size:13px;color:#4b5563}
+.reescrita{border-left:3px solid #2563eb;padding-left:12px;margin:8px 0}
+.chat-box{height:420px;overflow-y:auto;background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.msg{max-width:85%;padding:12px 14px;border-radius:14px;font-size:14px;line-height:1.5}
+.msg.bot{background:#f3f4f6;align-self:flex-start;border-bottom-left-radius:4px}
+.msg.user{background:#2563eb;color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+.chat-input{display:flex;gap:8px;margin-top:12px}
+.chat-input input{flex:1}
+.chat-input button{background:#111827;color:#fff;border:none;padding:12px 20px;border-radius:10px;font-weight:700;cursor:pointer}
+.sugestoes{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.sugestoes button{background:#fff;border:1px solid #e5e7eb;padding:8px 12px;border-radius:999px;font-size:12px;cursor:pointer}
+.loader{border:3px solid #e5e7eb;border-top:3px solid #2563eb;border-radius:50%;width:24px;height:24px;animation:spin 0.8s linear infinite;margin:20px auto}
+@keyframes spin{to{transform:rotate(360deg)}}
