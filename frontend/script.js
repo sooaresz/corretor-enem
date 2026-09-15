@@ -1,21 +1,24 @@
 const API = ""; // tamanho: string vazia = mesmo host (usa /api/corrigir no mesmo domínio, funciona local e Render)
 
-// TROCA DE ABAS: alterna entre Corrigir e Tirar Dúvidas, tamanho: 2 abas
+// TROCA DE ABAS: alterna entre Corrigir e Tirar Dúvidas, tamanho: 2 abas — usa event global com fallback
 function switchTab(t){
   document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active')); // remove ativo de todas abas
   document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active')); // esconde todos conteúdos
   document.getElementById('tab-'+t).classList.add('active'); // mostra aba clicada
-  event.target.classList.add('active'); // marca botão como ativo
+  const btn = (typeof event !== 'undefined' && event && event.target) ? event.target : document.querySelector(`button[onclick*="switchTab('${t}')"]`);
+  if(btn) btn.classList.add('active'); // marca botão como ativo (com fallback se event não existir)
 }
 
-// CONTADOR: conta palavras e linhas em tempo real, tamanho: atualiza a cada tecla
+// CONTADOR: conta palavras e linhas em tempo real, tamanho: atualiza a cada tecla — seguro mesmo se DOM ainda não carregou
 const ta = document.getElementById('redacao'); // tamanho: textarea 360px altura
 const cont = document.getElementById('contador'); // tamanho: span 12px ao lado do label
-ta.addEventListener('input', ()=>{
-  const palavras = ta.value.trim() ? ta.value.trim().split(/\s+/).length : 0; // tamanho: split por espaços
-  const linhas = ta.value ? ta.value.split('\n').length : 0; // tamanho: conta \n
-  cont.textContent = `${palavras} palavras • ${linhas} linhas`;
-});
+if(ta && cont){ // tamanho: só adiciona listener se elementos existem (evita erro que quebra o resto do JS)
+  ta.addEventListener('input', ()=>{
+    const palavras = ta.value.trim() ? ta.value.trim().split(/\s+/).length : 0; // tamanho: split por espaços
+    const linhas = ta.value ? ta.value.split('\n').length : 0; // tamanho: conta \n
+    cont.textContent = `${palavras} palavras • ${linhas} linhas`;
+  });
+}
 
 // NOVA CORREÇÃO: limpa tema, redação e resultado sem recarregar página, tamanho: reseta 3 campos
 function novaCorrecao(){
@@ -37,7 +40,14 @@ Em primeira análise, a cultura patriarcal enraizada na sociedade brasileira é 
 Ademais, a insuficiência de políticas públicas agrava a situação. De acordo com dados do IBGE, mulheres dedicam quase o dobro de horas semanais aos afazeres domésticos em relação aos homens. No entanto, o Estado não oferece creches em tempo integral, licenças parentais equitativas ou remuneração para cuidadoras. Assim, muitas mulheres abandonam o mercado de trabalho ou enfrentam dupla jornada exaustiva, sem reconhecimento social ou econômico.
 
 Portanto, é necessário que o Ministério da Mulher, em conjunto com o Ministério do Trabalho, promova políticas de valorização do cuidado, por meio da ampliação de creches públicas integrais e da criação de auxílio financeiro para cuidadoras, a fim de reconhecer economicamente esse trabalho. Além disso, o Ministério da Educação deve implementar campanhas escolares sobre igualdade de gênero, com palestras e materiais didáticos, para desconstruir estereótipos desde a base. Assim, o Brasil poderá tornar visível e valorizado o essencial trabalho de cuidado feminino.`;
-  ta.dispatchEvent(new Event('input')); // dispara contador após preencher
+  const _ta = document.getElementById('redacao'); // tamanho: pega de novo para não depender da const ta global
+  if(_ta) _ta.dispatchEvent(new Event('input')); // dispara contador após preencher
+  const _cont = document.getElementById('contador');
+  if(_cont && _ta){
+    const palavras = _ta.value.trim() ? _ta.value.trim().split(/\s+/).length : 0;
+    const linhas = _ta.value ? _ta.value.split('\n').length : 0;
+    _cont.textContent = `${palavras} palavras • ${linhas} linhas`;
+  }
 }
 
 // CORRIGIR: envia redação para /api/corrigir, tamanho: POST JSON com texto+tema, espera JSON C1-C5
