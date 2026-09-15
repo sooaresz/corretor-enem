@@ -41,13 +41,13 @@ python -m uvicorn backend.main:app --reload --port 8000
 Acesse: http://localhost:8000
 
 ## O que ele faz
-- ✅ Nota por competência (C1-C5 em 0/40/80/120/160/200)
-- ✅ Nota final 0-1000
-- ✅ Erros gramaticais apontados
-- ✅ Análise de repertório, coesão e proposta de intervenção (5 elementos)
-- ✅ Reescrita de trechos
-- ✅ Dica para 1000
-- ✅ Chat para dúvidas (conectivos, estrutura, temas)
+-  Nota por competência (C1-C5 em 0/40/80/120/160/200)
+-  Nota final 0-1000
+-  Erros gramaticais apontados
+-  Análise de repertório, coesão e proposta de intervenção (5 elementos)
+-  Reescrita de trechos
+-  Dica para 1000
+-  Chat para dúvidas (conectivos, estrutura, temas)
 
 ## Estrutura ENEM ensinada
 Introdução (contextualização + tese + 2 argumentos) → D1 → D2 → Conclusão (Agente + Ação + Meio + Efeito + Detalhamento)
