@@ -30,10 +30,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# --- RATE LIMIT: proteção contra abuso (10 correções por minuto por IP) ---
-# Evita que alguém gaste sua cota Groq com flood
+# --- RATE LIMIT: proteção contra abuso (10 correções por 7 minutos por IP) ---
+# Evita que alguém gaste sua cota Groq com flood — temporário 7min para testes, depois volta para 10 ou 15min
 RATE_LIMIT = 10  # tamanho: 10 requisições
-WINDOW_SEC = 60  # tamanho: janela de 60 segundos
+WINDOW_SEC = 7 * 60  # tamanho: janela de 7 minutos (420s) — antes era 60s (1min)
 _hits = defaultdict(deque)  # dict IP -> fila de timestamps
 
 @app.middleware("http")  # executa em toda requisição antes de chegar no endpoint
