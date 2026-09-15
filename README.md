@@ -6,7 +6,7 @@ Chatbot que corrige redações modelo ENEM na régua oficial do INEP (C1-C5, 0-1
 
 ### 1. Instalar dependências
 ```powershell
-cd C:\Users\danra\Documents\corretor-enem\backend
+cd C:\Users\seu_user\Documents\corretor-enem\backend
 pip install -r requirements.txt
 ```
 
