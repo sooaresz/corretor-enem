@@ -53,11 +53,20 @@ BASE_URL = os.getenv("OPENAI_BASE_URL", "")  # ex: https://api.groq.com/openai/v
 MODEL = os.getenv("MODEL", "gpt-4o-mini")
 
 client = None
+client_init_error = None
 if API_KEY:
-    kwargs = {"api_key": API_KEY}
-    if BASE_URL:
-        kwargs["base_url"] = BASE_URL
-    client = OpenAI(**kwargs)
+    try:
+        kwargs = {"api_key": API_KEY.strip()}
+        if BASE_URL:
+            kwargs["base_url"] = BASE_URL.strip()
+        client = OpenAI(**kwargs)
+        print(f"[init] OpenAI client OK - model={MODEL} base_url={BASE_URL or 'default'}")
+    except Exception as e:
+        client_init_error = str(e)
+        print(f"[init] OpenAI client FAILED: {e}")
+        client = None
+else:
+    print("[init] No API_KEY -> modo DEMO")
 
 class RedacaoRequest(BaseModel):
     texto: str
@@ -108,7 +117,7 @@ def mock_correcao(texto: str):
 
 @app.get("/api/health")
 def health():
-    return {"status": "ok", "model": MODEL, "api_configurada": bool(API_KEY), "rate_limit": f"{RATE_LIMIT}/min"}
+    return {"status": "ok", "model": MODEL, "api_configurada": bool(API_KEY) and client is not None, "client_error": client_init_error, "rate_limit": f"{RATE_LIMIT}/min"}
 
 @app.get("/api/config")
 def config():
