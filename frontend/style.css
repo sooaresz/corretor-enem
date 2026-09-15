@@ -1,9 +1,9 @@
 /* RESET: remove margens padrão do navegador e usa border-box (padding não aumenta tamanho) */
 *{box-sizing:border-box;margin:0;padding:0}
-/* BODY: fonte Inter, fundo cinza claro #f6f7fb, texto escuro #1a1a2e, altura de linha 1.6 para leitura */
-body{font-family:'Inter',sans-serif;background:#f6f7fb;color:#1a1a2e;line-height:1.6}
-/* HEADER: topo escuro #111827, altura 16px padding vertical + 24px horizontal, sticky (fixo ao rolar) */
-header{background:#111827;color:#fff;padding:16px 24px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10}
+/* BODY: fonte Inter, fundo escuro #121214 (jogo de cores dark), texto claro #e5e7eb, altura de linha 1.6 */
+body{font-family:'Inter',sans-serif;background:#18181b;color:#e5e7eb;line-height:1.6}
+/* HEADER: topo escuro #0f0f12, altura 16px padding vertical + 24px horizontal, sticky (fixo ao rolar) */
+header{background:#0f0f12;color:#fff;padding:16px 24px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10;border-bottom:1px solid #27272a}
 /* LOGO: tamanho 20px, peso 800 (extra-bold), letras próximas -0.5px, ENEM em azul #60a5fa */
 .logo{font-weight:800;font-size:20px;letter-spacing:-0.5px}.logo span{color:#60a5fa}
 /* BADGE: pílula cinza escura com info IA•C1-C5•Nota, tamanho 12px */
@@ -12,58 +12,59 @@ header{background:#111827;color:#fff;padding:16px 24px;display:flex;justify-cont
 .container{max-width:1200px;margin:0 auto;padding:24px}
 /* TABS: botões Corrigir/Tirar Dúvidas, gap 8px entre eles */
 .tabs{display:flex;gap:8px;margin-bottom:20px}
-/* TAB: tamanho padding 10x18px, borda cinza clara, fundo branco, tamanho fonte padrão 14px */
-.tab{padding:10px 18px;border:1px solid #e5e7eb;background:#fff;border-radius:10px;cursor:pointer;font-weight:600;color:#374151}
-/* TAB ATIVO: fundo escuro #111827 e texto branco */
-.tab.active{background:#111827;color:#fff;border-color:#111827}
+/* TAB: tamanho padding 10x18px, borda dark #27272a, fundo dark #1e1e1e, tamanho fonte padrão 14px */
+.tab{padding:10px 18px;border:1px solid #27272a;background:#1e1e1e;border-radius:10px;cursor:pointer;font-weight:600;color:#a1a1aa}
+ /* TAB ATIVO: fundo azul escuro #1e293b e texto branco (como na imagem) */
+.tab.active{background:#1e293b;color:#fff;border-color:#334155}
 .tab-content{display:none}.tab-content.active{display:block}
 /* GRID: 2 colunas (editor esquerda + resultado direita), gap 20px; em tela <900px vira 1 coluna */
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
 @media(max-width:900px){.grid{grid-template-columns:1fr}}
-/* PAINÉIS: fundo branco, borda arredondada 16px, padding 20px, sombra suave */
-.left,.right{background:#fff;border-radius:16px;padding:20px;border:1px solid #e5e7eb;box-shadow:0 4px 12px rgba(0,0,0,0.04)}
-/* LABEL: texto 13px semibold cinza, espaço 6px abaixo, contador à direita */
-label{font-weight:600;font-size:13px;color:#374151;display:flex;justify-content:space-between;margin-bottom:6px}
-#contador{font-weight:400;color:#9ca3af;font-size:12px}
-/* INPUT/TEXTAREA: borda 1.5px, raio 10px, padding 12x14px, fonte 14px, foco azul com sombra */
-input,textarea{width:100%;padding:12px 14px;border:1.5px solid #e5e7eb;border-radius:10px;font-family:inherit;font-size:14px;outline:none;transition:.2s}
-input:focus,textarea:focus{border-color:#60a5fa;box-shadow:0 0 0 3px #eff6ff}
+/* PAINÉIS: fundo escuro #1e1e1e, borda arredondada 16px, padding 20px, borda #27272a */
+.left,.right{background:#1e1e1e;border-radius:16px;padding:20px;border:1px solid #27272a;box-shadow:0 4px 12px rgba(0,0,0,0.3)}
+/* LABEL: texto 13px semibold claro, espaço 6px abaixo, contador à direita */
+label{font-weight:600;font-size:13px;color:#d4d4d8;display:flex;justify-content:space-between;margin-bottom:6px}
+#contador{font-weight:400;color:#71717a;font-size:12px}
+/* INPUT/TEXTAREA: borda 1.5px #27272a, raio 10px, padding 12x14px, fonte 14px, fundo dark #27272a, foco azul com sombra */
+input,textarea{width:100%;padding:12px 14px;border:1.5px solid #27272a;background:#27272a;color:#e5e7eb;border-radius:10px;font-family:inherit;font-size:14px;outline:none;transition:.2s}
+input::placeholder,textarea::placeholder{color:#71717a}
+input:focus,textarea:focus{border-color:#60a5fa;box-shadow:0 0 0 3px rgba(96,165,250,0.2)}
 /* TEXTAREA: altura 360px (cerca 15 linhas), fonte Merriweather serif para redação, linha 1.7 */
 textarea{height:360px;resize:vertical;font-family:'Merriweather',serif;line-height:1.7}
-/* AÇÕES: botões lado a lado com gap 10px, margem 12px topo */
+ /* AÇÕES: botões lado a lado com gap 10px, margem 12px topo */
 .actions{display:flex;gap:10px;margin-top:12px}
 /* BOTÃO CORRIGIR: azul #2563eb, ocupa flex 1 (largura total), padding 12px, tamanho 15px bold */
 #btnCorrigir{flex:1;background:#2563eb;color:#fff;border:none;padding:12px;border-radius:10px;font-weight:700;cursor:pointer;font-size:15px}
-#btnCorrigir:disabled{background:#9ca3af;cursor:not-allowed}
-.ghost{background:#fff;border:1px solid #e5e7eb;padding:12px 16px;border-radius:10px;cursor:pointer;font-weight:600}
-.hint{font-size:12px;color:#9ca3af;margin-top:8px;text-align:center} /* tamanho: 12px cinza claro centralizado */
-/* EMPTY: estado vazio "Sua correção aparecerá aqui" — padding 48x24px, altura mín 420px centralizado, tamanho base */
-.empty{text-align:center;padding:48px 24px;color:#6b7280;min-height:420px;display:flex;flex-direction:column;justify-content:center;align-items:center}
+#btnCorrigir:disabled{background:#52525b;cursor:not-allowed}
+.ghost{background:#27272a;border:1px solid #3f3f46;color:#e5e7eb;padding:12px 16px;border-radius:10px;cursor:pointer;font-weight:600}
+.hint{font-size:12px;color:#71717a;margin-top:8px;text-align:center} /* tamanho: 12px cinza claro centralizado */
+/* EMPTY: estado vazio "Sua correção aparecerá aqui" — padding 48x24px, altura mín 420px centralizado, tamanho base, fundo #111111 */
+.empty{text-align:center;padding:48px 24px;color:#a1a1aa;min-height:420px;display:flex;flex-direction:column;justify-content:center;align-items:center}
 .empty-icon{font-size:64px;margin-bottom:16px} /* tamanho: ícone 🎯 64px */
-.empty h3{color:#111827;margin-bottom:10px;font-size:22px;font-weight:800} /* tamanho: título 22px */
-.empty p{font-size:15px;max-width:360px;line-height:1.5} /* tamanho: descrição 15px */
+.empty h3{color:#f4f4f5;margin-bottom:10px;font-size:22px;font-weight:800} /* tamanho: título 22px branco */
+.empty p{font-size:15px;max-width:360px;line-height:1.5;color:#a1a1aa} /* tamanho: descrição 15px cinza */
 .empty ul{text-align:left;margin:20px auto;max-width:360px;font-size:20px;list-style:none;line-height:1.4} /* tamanho: lista 20px (C1-C5) */
-.empty li{margin:8px 0;font-size:20px} /* tamanho: cada ✅ 20px */
-.nota-total{text-align:center;padding:18px;background:linear-gradient(135deg,#111827,#1e40af);color:#fff;border-radius:14px;margin-bottom:16px} /* tamanho: card nota total 18px padding */
+.empty li{margin:8px 0;font-size:20px;color:#d4d4d8} /* tamanho: cada ✅ 20px claro */
+.nota-total{text-align:center;padding:18px;background:linear-gradient(135deg,#0f172a,#1e40af);color:#fff;border-radius:14px;margin-bottom:16px} /* tamanho: card nota total 18px padding */
 .nota-total .num{font-size:42px;font-weight:800;line-height:1} /* tamanho: número 960 em 42px */
 .nota-total .label{font-size:12px;opacity:.8;letter-spacing:1px}
-.demo-aviso{background:#fef3c7;border:1px solid #fcd34d;color:#92400e;padding:8px 12px;border-radius:8px;font-size:12px;margin-bottom:12px;text-align:center}
+.demo-aviso{background:#422006;border:1px solid #f59e0b;color:#fcd34d;padding:8px 12px;border-radius:8px;font-size:12px;margin-bottom:12px;text-align:center}
 .competencias{display:grid;gap:8px;margin-bottom:16px} /* tamanho: gap 8px entre cards C1-C5 */
-.comp{display:flex;justify-content:space-between;align-items:center;padding:12px;background:#f9fafb;border-radius:10px;border-left:4px solid #e5e7eb} /* tamanho: borda esquerda 4px colorida */
+.comp{display:flex;justify-content:space-between;align-items:center;padding:12px;background:#262626;border-radius:10px;border-left:4px solid #3f3f46} /* tamanho: borda esquerda 4px colorida, fundo #262626 */
 .comp.ok{border-left-color:#10b981}.comp.media{border-left-color:#f59e0b}.comp.ruim{border-left-color:#ef4444}
-.comp b{font-size:13px}.comp .nota{font-weight:800;font-size:18px} /* tamanho: nota 18px à direita */
-.card{background:#f9fafb;padding:14px;border-radius:10px;margin-bottom:10px}
-.card h4{font-size:13px;margin-bottom:6px;color:#111827}
-.card p, .card li{font-size:13px;color:#4b5563}
+.comp b{font-size:13px;color:#f4f4f5}.comp .nota{font-weight:800;font-size:18px;color:#f4f4f5} /* tamanho: nota 18px à direita */
+.card{background:#262626;padding:14px;border-radius:10px;margin-bottom:10px;border:1px solid #27272a}
+.card h4{font-size:13px;margin-bottom:6px;color:#f4f4f5}
+.card p, .card li{font-size:13px;color:#d4d4d8}
 .reescrita{border-left:3px solid #2563eb;padding-left:12px;margin:8px 0}
-.chat-box{height:420px;overflow-y:auto;background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:12px} /* tamanho: altura 420px com scroll */
+.chat-box{height:420px;overflow-y:auto;background:#1e1e1e;border:1px solid #27272a;border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:12px} /* tamanho: altura 420px com scroll, fundo dark */
 .msg{max-width:85%;padding:12px 14px;border-radius:14px;font-size:14px;line-height:1.5}
-.msg.bot{background:#f3f4f6;align-self:flex-start;border-bottom-left-radius:4px}
+.msg.bot{background:#27272a;color:#e5e7eb;align-self:flex-start;border-bottom-left-radius:4px}
 .msg.user{background:#2563eb;color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
 .chat-input{display:flex;gap:8px;margin-top:12px}
 .chat-input input{flex:1}
-.chat-input button{background:#111827;color:#fff;border:none;padding:12px 20px;border-radius:10px;font-weight:700;cursor:pointer}
+.chat-input button{background:#2563eb;color:#fff;border:none;padding:12px 20px;border-radius:10px;font-weight:700;cursor:pointer}
 .sugestoes{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
-.sugestoes button{background:#fff;border:1px solid #e5e7eb;padding:8px 12px;border-radius:999px;font-size:12px;cursor:pointer}
-.loader{border:3px solid #e5e7eb;border-top:3px solid #2563eb;border-radius:50%;width:24px;height:24px;animation:spin 0.8s linear infinite;margin:20px auto} /* tamanho: spinner 24px */
+.sugestoes button{background:#27272a;border:1px solid #3f3f46;color:#d4d4d8;padding:8px 12px;border-radius:999px;font-size:12px;cursor:pointer}
+.loader{border:3px solid #27272a;border-top:3px solid #2563eb;border-radius:50%;width:24px;height:24px;animation:spin 0.8s linear infinite;margin:20px auto} /* tamanho: spinner 24px */
 @keyframes spin{to{transform:rotate(360deg)}}
