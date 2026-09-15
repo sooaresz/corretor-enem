@@ -17,6 +17,16 @@ ta.addEventListener('input', ()=>{
   cont.textContent = `${palavras} palavras • ${linhas} linhas`;
 });
 
+// NOVA CORREÇÃO: limpa tema, redação e resultado sem recarregar página, tamanho: reseta 3 campos
+function novaCorrecao(){
+  document.getElementById('tema').value = ""; // tamanho: limpa input tema
+  document.getElementById('redacao').value = ""; // tamanho: limpa textarea 360px
+  document.getElementById('contador').textContent = "0 palavras • 0 linhas"; // tamanho: reseta contador 12px
+  // restaura estado vazio original (🎯 + lista 20px)
+  document.getElementById('resultado').innerHTML = `<div class="empty"><div class="empty-icon">🎯</div><h3>Sua correção aparecerá aqui</h3><p>Nota por competência (C1-C5), comentários, reescrita de trechos e dica para 1000.</p><ul><li>✅ C1: Gramática e norma culta</li><li>✅ C2: Tema e repertório</li><li>✅ C3: Argumentação</li><li>✅ C4: Coesão</li><li>✅ C5: Proposta de intervenção</li></ul></div>`;
+  document.getElementById('redacao').focus(); // tamanho: foca no textarea para digitar nova
+}
+
 // EXEMPLO: carrega redação nota 1000 pronta, tamanho: tema + redação com 361 palavras aprox
 function exemplo(){
   document.getElementById('tema').value = "Desafios para o enfrentamento da invisibilidade do trabalho de cuidado realizado pela mulher no Brasil";
@@ -89,6 +99,8 @@ function renderResultado(r, isDemo){
   // mostra JSON completo para debug, tamanho: pre 11px
   html += `<details style="margin-top:12px"><summary style="cursor:pointer;font-size:13px;font-weight:600">Ver JSON completo</summary><pre style="font-size:11px;background:#1f2937;color:#e5e7eb;padding:12px;border-radius:8px;overflow:auto;margin-top:8px">${JSON.stringify(r,null,2)}</pre></details>`;
 
+  // adiciona botão Nova correção dentro do resultado também (facilita no celular), tamanho: botão ghost 12px
+  html += `<button class="ghost" onclick="novaCorrecao()" style="width:100%;margin-top:12px">🔄 Nova correção</button>`;
   document.getElementById('resultado').innerHTML = html;
 }
 

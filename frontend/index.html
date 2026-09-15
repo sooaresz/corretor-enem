@@ -30,9 +30,10 @@
         <label>Sua redação <span id="contador">0 palavras • 0 linhas</span></label> <!-- tamanho: contador 12px -->
         <textarea id="redacao" placeholder="Cole sua redação aqui...&#10;&#10;Dica: Escreva no mínimo 8 linhas (ideal 25-30 linhas) no modelo dissertativo-argumentativo."></textarea> <!-- tamanho: textarea 360px altura -->
         
-        <div class="actions"> <!-- tamanho: botões lado a lado gap 10px -->
+        <div class="actions"> <!-- tamanho: botões lado a lado gap 10px, wrap para caber 3 botões -->
           <button id="btnCorrigir" onclick="corrigir()">⚡ Corrigir com IA</button> <!-- tamanho: botão azul 12px padding, 15px fonte -->
           <button class="ghost" onclick="exemplo()">Carregar exemplo</button>
+          <button class="ghost" onclick="novaCorrecao()">🔄 Nova correção</button> <!-- tamanho: limpa tema+redação sem reload -->
         </div>
         <p class="hint">✅ Correção com IA ativa — Groq • C1-C5 em segundos</p> <!-- tamanho: hint 12px cinza -->
       </div>
